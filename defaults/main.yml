@@ -1,0 +1,5 @@
+---
+zoom_url: 'https://vmware.zoom.us'
+zoom_pkg_url: "{{ zoom_url }}/client/latest/zoom_x86_64.rpm"
+zoom_version: '2.7.162522.0121'
+zoom_state: 'absent'

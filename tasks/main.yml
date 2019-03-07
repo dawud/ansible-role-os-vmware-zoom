@@ -1,0 +1,32 @@
+---
+- name: Explain action
+  debug:
+    msg: "Ensuring zoom is {{ zoom_state }}"
+
+- name: Check if Zoom RPM {{ zoom_version }} is installed
+  package_facts:
+    manager: "auto"
+
+- meta: end_play
+  when:
+    - "'absent' in zoom_state"
+    - packages.zoom is not defined
+
+- meta: end_play
+  when:
+    - "'present' in zoom_state"
+    - packages.zoom is defined
+    - packages.zoom[0].version is version(zoom_version, '=')
+
+- name: Manage Zoom Meeting app
+  block:
+
+    - name: RPM GPG key
+      rpm_key:
+        key: "{{ zoom_url }}/linux/download/pubkey"
+        state: "{{ zoom_state | default('absent')}}"
+
+    - name: Zoom package
+      dnf:
+        name: "{% if 'present' in zoom_state | default('absent') %}{{ zoom_pkg_url }}{% elif 'absent' in zoom_state | default('absent') %}zoom{% endif %}"
+        state: "{{ zoom_state | default('absent')}}"

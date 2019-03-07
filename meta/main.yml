@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: David Sastre Medina <d.sastre.medina@gmail.com>
+  description: VMWare Zoom Meeting app installation
+  company: Multicats
+  license: ISC
+  min_ansible_version: 2.7
+  platforms:
+    - name: Fedora
+      versions:
+        - 29
+  galaxy_tags:
+    - vmware
+    - meeting
+    - videoconference
+dependencies: []
